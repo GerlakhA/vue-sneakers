@@ -1,23 +1,6 @@
 <script setup lang="ts">
+import { links } from '@/config/constants'
 import clsx from 'clsx'
-
-const links = [
-  {
-    id: 1,
-    imgUrl: '/cart.svg',
-    item: '1205 ₽.',
-  },
-  {
-    id: 2,
-    imgUrl: '/heart.svg',
-    item: 'Закладки',
-  },
-  {
-    id: 3,
-    imgUrl: '/profile.svg',
-    item: 'Профиль',
-  },
-]
 
 const classFn = (id: number) =>
   clsx(
