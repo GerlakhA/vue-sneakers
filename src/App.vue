@@ -32,13 +32,9 @@ provide('drawer', visible)
     v-model:visible="visible"
     header="Drawer"
     position="right"
-    class="!bg-white !text-black"
+    class="bg-white text-black"
   >
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </p>
+    <p>123</p>
   </Drawer>
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-14">
     <Header />
@@ -50,7 +46,7 @@ provide('drawer', visible)
         :search-value="searchValue"
       />
     </div>
-    <div class="grid grid-cols-4 gap-8 overflow-y">
+    <div class="p-10 grid grid-cols-4 gap-8 overflow-y">
       <SneakersCard v-for="sneaker in sneakers" :key="sneaker.id" :sneaker="sneaker" />
     </div>
   </div>

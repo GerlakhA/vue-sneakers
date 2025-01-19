@@ -14,11 +14,11 @@ app.use(createPinia())
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
-  },
-  options: {
-    cssLayer: {
-      name: 'primevue',
-      order: 'tailwind-base, primevue, tailwind-utilities',
+    options: {
+      cssLayer: {
+        name: 'primevue',
+        order: 'tailwind-base, primevue, tailwind-utilities',
+      },
     },
   },
 })
