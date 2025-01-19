@@ -20,12 +20,12 @@ defineProps<{
 
     <img :src="sneaker.imageUrl" alt="Sneaker" />
 
-    <p class="mt-2">{{ sneaker.title }}</p>
+    <p class="mt-2 text-black">{{ sneaker.title }}</p>
 
     <div class="flex justify-between mt-5">
       <div class="flex flex-col">
         <span class="text-slate-400">Цена:</span>
-        <b>{{ sneaker.price }} руб.</b>
+        <b class="text-black">{{ sneaker.price }} руб.</b>
       </div>
 
       <!-- <img
