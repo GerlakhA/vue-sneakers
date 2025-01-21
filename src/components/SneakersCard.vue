@@ -1,14 +1,27 @@
 <script setup lang="ts">
+import { Url } from '@/config/constants'
 import type { ISneakers } from '@/config/types'
+import axios from 'axios'
+import Button from 'primevue/button'
 
 defineProps<{
   sneaker: ISneakers
 }>()
+
+const addToCart = async (data: ISneakers) => {
+  try {
+    const res = await axios.post<ISneakers>(`${Url}/cart`, data)
+    console.log(data)
+    return res.data
+  } catch (error) {
+    alert(error)
+  }
+}
 </script>
 
 <template>
   <div
-    class="relative bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl"
+    class="relative bg-white border-2 border-slate-100 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl"
   >
     <!-- <img
       v-if="onClickFavorite"
@@ -22,18 +35,16 @@ defineProps<{
 
     <p class="mt-2 text-black">{{ sneaker.title }}</p>
 
-    <div class="flex justify-between mt-5">
+    <div class="flex items-center justify-between mt-5">
       <div class="flex flex-col">
         <span class="text-slate-400">Цена:</span>
         <b class="text-black">{{ sneaker.price }} руб.</b>
       </div>
-
-      <!-- <img
-        v-if="onClickAdd"
-        @click="onClickAdd"
-        :src="!isAdded ? '/plus.svg' : '/checked.svg'"
-        alt="Plus"
-      /> -->
+      <Button
+        @click="addToCart(sneaker)"
+        label="В корзину"
+        class="w-[120px] h-[50px] text-white bg-green-500"
+      />
     </div>
   </div>
 </template>
