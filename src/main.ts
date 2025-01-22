@@ -5,6 +5,7 @@ import { createApp } from 'vue'
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import Aura from '@primevue/themes/aura'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 import PrimeVue from 'primevue/config'
 import App from './App.vue'
 import router from './router'
@@ -25,5 +26,6 @@ app.use(PrimeVue, {
 })
 app.use(router)
 app.use(autoAnimatePlugin)
+app.use(VueQueryPlugin)
 
 app.mount('#app')

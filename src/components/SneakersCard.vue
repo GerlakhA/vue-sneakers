@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { Url } from '@/config/constants'
 import type { ISneakers } from '@/config/types'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from 'axios'
 import Button from 'primevue/button'
 
 defineProps<{
   sneaker: ISneakers
 }>()
+
+const client = useQueryClient()
 
 const addToCart = async (data: ISneakers) => {
   try {
@@ -17,6 +20,15 @@ const addToCart = async (data: ISneakers) => {
     alert(error)
   }
 }
+
+const { mutate } = useMutation({
+  mutationKey: ['deleteCartItem'],
+  mutationFn: (data: ISneakers) => addToCart(data),
+  onSuccess: () => {
+    alert('Вы добавили товар в корзину')
+    client.invalidateQueries({ queryKey: ['cartItem'] })
+  },
+})
 </script>
 
 <template>
@@ -41,7 +53,7 @@ const addToCart = async (data: ISneakers) => {
         <b class="text-black">{{ sneaker.price }} руб.</b>
       </div>
       <Button
-        @click="addToCart(sneaker)"
+        @click="mutate(sneaker)"
         label="В корзину"
         class="w-[120px] h-[50px] text-white bg-green-500"
       />

@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { Url } from '@/config/constants'
 import type { ISneakers } from '@/config/types'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import axios from 'axios'
 import Button from 'primevue/button'
 import Drawer from 'primevue/drawer'
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, inject } from 'vue'
 
-const cartItems = ref<ISneakers[]>([])
+// const cartItems = ref<ISneakers[]>([])
+const client = useQueryClient()
 const visible = inject<boolean>('drawer')
-const isEmptyCart = computed(() => cartItems.value.length === 0)
 
 const fetchDataCart = async () => {
   const res = await axios.get<ISneakers[]>(`${Url}/cart`)
-  cartItems.value = res.data
+  return res.data
 }
 
 const deleteCartItem = async (id: number) => {
@@ -20,12 +21,20 @@ const deleteCartItem = async (id: number) => {
   return res.data
 }
 
-onMounted(async () => {
-  try {
-    await fetchDataCart()
-  } catch (error) {
-    alert(error)
-  }
+const { data: cartItems } = useQuery({
+  queryKey: ['cartItem'],
+  queryFn: fetchDataCart,
+})
+
+const isEmptyCart = computed(() => cartItems?.value?.length === 0)
+
+const { mutate } = useMutation({
+  mutationKey: ['deleteCartItem'],
+  mutationFn: (id: number) => deleteCartItem(id),
+  onSuccess: () => {
+    alert('Вы удалили товар из корзины')
+    client.invalidateQueries({ queryKey: ['cartItem'] })
+  },
 })
 </script>
 
@@ -48,7 +57,7 @@ onMounted(async () => {
           <span class="font-bold">{{ cartItem.price }} руб.</span>
         </div>
         <img
-          @click="deleteCartItem(cartItem.id)"
+          @click="mutate(cartItem.id)"
           src="/close.svg"
           alt="plus"
           class="absolute right-4 top-[70px] w-10 cursor-pointer hover:fill-red-500 hover:text-white"
