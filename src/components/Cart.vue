@@ -27,8 +27,6 @@ onMounted(async () => {
     alert(error)
   }
 })
-
-// watch(cartItems, fetchDataCart)
 </script>
 
 <template>
@@ -38,7 +36,7 @@ onMounted(async () => {
     position="right"
     class="bg-white text-black w-[450px]"
   >
-    <div v-if="!isEmptyCart" class="h-[85%] flex flex-col gap-4">
+    <div v-if="!isEmptyCart" class="h-[85%] flex flex-col gap-4" v-auto-animate>
       <div
         v-for="cartItem in cartItems"
         :key="cartItem.id"

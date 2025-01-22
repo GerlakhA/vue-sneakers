@@ -9,7 +9,9 @@ const visible = inject<Ref<boolean, boolean>>('drawer')
     class="w-full flex justify-between items-center border-b border-b-slate-300 px-10 py-8"
   >
     <div class="flex items-center gap-4">
-      <img src="/logo.png" alt="logo" class="w-10" />
+      <router-link to="/">
+        <img src="/logo.png" alt="logo" class="w-10" />
+      </router-link>
       <div class="">
         <h1 class="font-bold text-xl uppercase text-black">Vue Sneakers</h1>
         <p class="text-neutral-400">Магазин лучших кроссовок</p>
@@ -33,10 +35,12 @@ const visible = inject<Ref<boolean, boolean>>('drawer')
           </li>
         </router-link>
 
-        <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-          <img src="/profile.svg" alt="Cart" />
-          <span>Профиль</span>
-        </li>
+        <router-link to="/profile">
+          <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
+            <img src="/profile.svg" alt="Cart" />
+            <span>Профиль</span>
+          </li>
+        </router-link>
       </ul>
     </div>
   </header>
